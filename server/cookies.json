@@ -1,0 +1,60 @@
+[
+  {
+    "name": "ring_session",
+    "value": "1.1.1741348070.1741348070.1741348115.qWTex6oIZUfLy3%2FJacIQs1HoiYFo8eLsUqMfJr7FIVg%3D",
+    "domain": ".farpost.ru",
+    "path": "/",
+    "expires": 1775908115.276764,
+    "size": 97,
+    "httpOnly": false,
+    "secure": true,
+    "session": false,
+    "sameSite": "None",
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "_ga_G0RWKN84TQ",
+    "value": "GS1.1.1741348075.1.0.1741348075.60.0.0",
+    "domain": ".farpost.ru",
+    "path": "/",
+    "expires": 1775908075.857709,
+    "size": 52,
+    "httpOnly": false,
+    "secure": false,
+    "session": false,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "_ga",
+    "value": "GA1.1.1346666942.1741348076",
+    "domain": ".farpost.ru",
+    "path": "/",
+    "expires": 1775908075.832223,
+    "size": 30,
+    "httpOnly": false,
+    "secure": false,
+    "session": false,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "ring",
+    "value": "114dc9f122cd42270660a97e0ff66a6f",
+    "domain": ".farpost.ru",
+    "path": "/",
+    "expires": 1775908115.276626,
+    "size": 36,
+    "httpOnly": false,
+    "secure": true,
+    "session": false,
+    "sameSite": "None",
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  }
+]
