@@ -28,7 +28,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('all');
   const [newMyUrl, setNewMyUrl] = useState('');
   const [newCompetitorUrl, setNewCompetitorUrl] = useState('');
-  const wsRef = useRef(null); // Ссылка на WebSocket для сохранения единственного экземпляра
+  const wsRef = useRef(null);
 
   const categories = {
     all: 'Все',
@@ -40,16 +40,14 @@ function App() {
   };
 
   useEffect(() => {
-    // Инициализация WebSocket
     if (!wsRef.current) {
-      const wsConnection = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+      const wsConnection = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
       wsRef.current = wsConnection;
 
       wsConnection.onopen = () => {
         console.log('WebSocket подключён');
         setConnectionStatus('Подключено');
-        toast.success('WebSocket подключён', { autoClose: 3000 }); // Уведомление только один раз
-        // Отправка начального списка ссылок
+        toast.success('WebSocket подключён', { autoClose: 3000 });
         wsConnection.send(JSON.stringify({ 
           action: 'updateLinks', 
           links: Array.from(productLinks).map(([url, data]) => ({ url, competitorId: data.competitorId }))
@@ -59,12 +57,10 @@ function App() {
       wsConnection.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log('Получено сообщение:', JSON.stringify(data, null, 2));
-
         if (data.error) {
           toast.error(`Ошибка от сервера: ${data.error}`);
           return;
         }
-
         if (data.action === 'remove') {
           setPrices((prev) => prev.filter((item) => item.url !== data.url));
           setProductLinks((prev) => {
@@ -75,7 +71,6 @@ function App() {
           toast.info(`Удалена ссылка: ${data.url}`);
           return;
         }
-
         if (data.action === 'add') {
           setProductLinks((prev) => {
             const newMap = new Map(prev);
@@ -85,7 +80,6 @@ function App() {
           toast.success(`Ссылка ${data.url} добавлена для мониторинга`);
           return;
         }
-
         if (data.action === 'priceChange') {
           setPrices((prev) => {
             const existingIndex = prev.findIndex((item) => item.url === data.url);
@@ -102,7 +96,6 @@ function App() {
             }
           });
         }
-
         if (data.action === 'captchaDetected') {
           toast.error(`Капча обнаружена на ${data.url}. Данные временно недоступны.`);
         }
@@ -117,9 +110,9 @@ function App() {
       wsConnection.onclose = () => {
         console.log('WebSocket закрыт, пытаемся переподключиться...');
         setConnectionStatus('Переподключение...');
-        wsRef.current = null; // Сбрасываем ссылку для повторного подключения
+        wsRef.current = null;
         setTimeout(() => {
-          if (!wsRef.current) connectWebSocket(); // Повторная попытка подключения
+          if (!wsRef.current) connectWebSocket();
         }, 5000);
       };
     }
@@ -130,7 +123,7 @@ function App() {
         wsRef.current = null;
       }
     };
-  }, []); // Пустая зависимость, чтобы useEffect срабатывал только при монтировании
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('prices', JSON.stringify(prices));
